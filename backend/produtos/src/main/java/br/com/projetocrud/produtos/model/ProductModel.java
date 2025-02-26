@@ -17,6 +17,6 @@ public class ProductModel {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long code;
   private String name;
-  private String marca;
+  private String mark;
 
 }
