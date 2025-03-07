@@ -1,6 +1,5 @@
 package br.com.projetocrud.produtos.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,19 +9,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "products")
+@Table(name = "users")
 @Getter
 @Setter
-public class ProductModel {
+public class UserModel {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long code;
+  private Long id;
   private String name;
-  private String mark;
-  private String quantity;
-  private String description;
-  private String category;
-  private String supplier;
-  private Double price;
-
+  private String password;
+  private String email;
 }
