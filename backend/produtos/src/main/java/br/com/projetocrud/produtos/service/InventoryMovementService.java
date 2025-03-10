@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.projetocrud.produtos.dto.InventoryMovementDTO;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class InventoryMovementService {
 
+  @Autowired
   private final InventoryMovementRepository inventoryMovementRepository;
 
   public List<InventoryMovementDTO> getAllMovements() {

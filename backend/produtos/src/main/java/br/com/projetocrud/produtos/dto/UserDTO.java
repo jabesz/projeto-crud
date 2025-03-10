@@ -9,13 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-  public UserDTO(UserDTO userDTO) {
 
+  public UserDTO(UserModel user) {
+    this.id = user.getId();
+    this.name = user.getName();
+    this.email = user.getEmail();
+    this.password = user.getPassword();
   }
-  public UserDTO(UserModel save) {
 
-  }
   private Long id;
-  private String username;
+  private String name;
   private String email;
+  private String password;
 }

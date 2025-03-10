@@ -18,9 +18,16 @@ public class UserModel {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  private String password;
   private String email;
+  private String password;
+  
   public void updateFromDTO(UserDTO userDTO) {
-    throw new UnsupportedOperationException("Unimplemented method 'updateFromDTO'");
+    this.name = userDTO.getName();
+    this.email = userDTO.getEmail();
+    this.password = userDTO.getPassword(); // A senha já está criptografada no DTO
+  }
+
+  public void setUsername(String username) {
+    throw new UnsupportedOperationException("Unimplemented method 'setUsername'");
   }
 }

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.projetocrud.produtos.dto.UserDTO;
@@ -15,32 +17,46 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
 
+  @Autowired
   private final UserRepository userRepository;
+
+  private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+  public UserDTO createUser(UserDTO userDTO) {
+    String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+
+    UserModel user = new UserModel();
+    user.setName(userDTO.getName());
+    user.setEmail(userDTO.getEmail());
+    user.setPassword(encryptedPassword);
+
+    UserModel savedUser = userRepository.save(user);
+    return new UserDTO(savedUser);
+  }
 
   public List<UserDTO> getAllUsers() {
     Iterable<UserModel> users = userRepository.findAll();
 
     return StreamSupport.stream(users.spliterator(), false)
-        .map(UserDTO::new)
+        .map(UserDTO::new) // Convertendo cada UserModel para UserDTO
         .toList();
   }
 
   public UserDTO getUserById(Long id) {
-    Optional<UserDTO> user = userRepository.findById(id).map(UserDTO::new);
-    
-    return user.orElseThrow(() -> new RuntimeException("User not found"));
-  }
+    Optional<UserModel> user = userRepository.findById(id);
 
-  public UserDTO createUser(UserDTO userDTO) {
-    UserDTO user = new UserDTO(userDTO);
-    return new UserDTO(userRepository.save(user));
+    return user.map(UserDTO::new) // Convertendo UserModel para UserDTO
+        .orElseThrow(() -> new RuntimeException("User not found"));
   }
 
   public UserDTO updateUser(Long id, UserDTO userDTO) {
     UserModel user = userRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("User not found"));
+
     user.updateFromDTO(userDTO);
-    return new UserDTO(userRepository.save(user));
+    UserModel updatedUser = userRepository.save(user);
+
+    return new UserDTO(updatedUser);
   }
 
   public void deleteUser(Long id) {
