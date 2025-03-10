@@ -1,6 +1,8 @@
 package br.com.projetocrud.produtos.dto;
 
 import java.time.LocalDate;
+
+import br.com.projetocrud.produtos.entity.ProductModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
+  public ProductDTO(ProductDTO productDTO) {
+
+  }
+  public ProductDTO(ProductModel save) {
+
+  }
   private Long id;
   private String name;
   private Integer quantity;

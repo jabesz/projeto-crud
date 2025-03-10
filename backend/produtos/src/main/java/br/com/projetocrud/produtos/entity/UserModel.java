@@ -1,5 +1,6 @@
 package br.com.projetocrud.produtos.entity;
 
+import br.com.projetocrud.produtos.dto.UserDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,4 +20,7 @@ public class UserModel {
   private String name;
   private String password;
   private String email;
+  public void updateFromDTO(UserDTO userDTO) {
+    throw new UnsupportedOperationException("Unimplemented method 'updateFromDTO'");
+  }
 }

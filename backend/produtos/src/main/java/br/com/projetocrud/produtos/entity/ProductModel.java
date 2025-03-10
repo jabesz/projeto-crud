@@ -1,5 +1,6 @@
 package br.com.projetocrud.produtos.entity;
 
+import br.com.projetocrud.produtos.dto.ProductDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,5 +24,8 @@ public class ProductModel {
   private String category;
   private String supplier;
   private Double price;
+  public void updateFromDTO(ProductDTO productDTO) {
+    throw new UnsupportedOperationException("Unimplemented method 'updateFromDTO'");
+  }
 
 }
