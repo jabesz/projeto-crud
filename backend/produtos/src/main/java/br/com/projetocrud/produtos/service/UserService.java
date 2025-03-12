@@ -1,13 +1,10 @@
 package br.com.projetocrud.produtos.service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import br.com.projetocrud.produtos.dto.UserDTO;
 import br.com.projetocrud.produtos.entity.UserModel;
 import br.com.projetocrud.produtos.repository.UserRepository;
@@ -38,24 +35,28 @@ public class UserService {
     Iterable<UserModel> users = userRepository.findAll();
 
     return StreamSupport.stream(users.spliterator(), false)
-        .map(UserDTO::new) // Convertendo cada UserModel para UserDTO
+        .map(UserDTO::new)
         .toList();
   }
 
   public UserDTO getUserById(Long id) {
     Optional<UserModel> user = userRepository.findById(id);
 
-    return user.map(UserDTO::new) // Convertendo UserModel para UserDTO
+    return user.map(UserDTO::new)
         .orElseThrow(() -> new RuntimeException("User not found"));
   }
 
   public UserDTO updateUser(Long id, UserDTO userDTO) {
     UserModel user = userRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("User not found"));
+      .orElseThrow(() -> new RuntimeException("User not found"));
 
-    user.updateFromDTO(userDTO);
+    user.setName(userDTO.getName());
+    user.setEmail(userDTO.getEmail());
+    if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
+      user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+    }
+
     UserModel updatedUser = userRepository.save(user);
-
     return new UserDTO(updatedUser);
   }
 

@@ -2,29 +2,35 @@ package br.com.projetocrud.produtos.entity;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.Setter;
+import br.com.projetocrud.produtos.dto.InventoryMovementDTO;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Getter
-@Setter
+@Table(name = "inventory_movements")
 public class InventoryMovementModel {
+  
+  public InventoryMovementModel(InventoryMovementDTO dto) {
+    this.productId = dto.getProductId();
+    this.quantity = dto.getQuantity();
+    this.type = dto.getType();
+    this.movementDate = dto.getMovementDate();
+    this.description = dto.getDescription();
+  }
+  
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  @ManyToOne
-  @JoinColumn(name = "product_id", nullable = false)
-  private ProductModel product;
-
+  private Long productId;
   private Integer quantity;
   private String type;
   private LocalDateTime movementDate;
   private String description;
+
+
 }

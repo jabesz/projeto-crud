@@ -11,12 +11,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InventoryMovementDTO {
+
   public InventoryMovementDTO(InventoryMovementModel movement) {
-    
+    this.id = movement.getId();
+    this.productId = movement.getProductId();
+    this.quantity = movement.getQuantity();
+    this.type = movement.getType();
+    this.movementDate = movement.getMovementDate();
+    this.description = movement.getDescription();
   }
-  public InventoryMovementDTO(InventoryMovementDTO movementDTO) {
-    
-  }
+
   private Long id;
   private Long productId;
   private Integer quantity;

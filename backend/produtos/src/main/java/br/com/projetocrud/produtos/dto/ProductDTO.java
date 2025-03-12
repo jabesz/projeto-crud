@@ -1,7 +1,5 @@
 package br.com.projetocrud.produtos.dto;
 
-import java.time.LocalDate;
-
 import br.com.projetocrud.produtos.entity.ProductModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,19 +9,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
-  public ProductDTO(ProductDTO productDTO) {
 
+  public ProductDTO(ProductModel product) {
+    this.id = product.getId();
+    this.name = product.getName();
+    this.quantity = product.getQuantity();
+    this.price = product.getPrice();
+    this.description = product.getDescription();
+    this.category = product.getCategory();
+    this.supplier = product.getSupplier();
   }
-  public ProductDTO(ProductModel save) {
 
-  }
   private Long id;
   private String name;
-  private Integer quantity;
-  private Double price;
-  private String description;
   private String category;
+  private String description;
+  private Double price;
+  private Integer quantity;
   private String supplier;
-  private LocalDate expirationDate;
-  private String barcode;
+  private Integer initialStock;
 }

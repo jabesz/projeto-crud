@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.projetocrud.produtos.dto.InventoryMovementDTO;
 import br.com.projetocrud.produtos.service.InventoryMovementService;
 import lombok.RequiredArgsConstructor;

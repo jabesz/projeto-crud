@@ -16,16 +16,32 @@ import lombok.Setter;
 public class ProductModel {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long code;
+  private Long id;
+
   private String name;
   private String mark;
-  private String quantity;
+  private Integer quantity;
   private String description;
   private String category;
   private String supplier;
   private Double price;
+
   public void updateFromDTO(ProductDTO productDTO) {
-    throw new UnsupportedOperationException("Unimplemented method 'updateFromDTO'");
+    this.name = productDTO.getName();
+    this.quantity = productDTO.getQuantity();
+    this.price = productDTO.getPrice();
+    this.description = productDTO.getDescription();
+    this.category = productDTO.getCategory();
+    this.supplier = productDTO.getSupplier();
+  }
+  
+  public ProductModel(ProductDTO productDTO) {
+    this.name = productDTO.getName();
+    this.category = productDTO.getCategory();
+    this.description = productDTO.getDescription();
+    this.price = productDTO.getPrice();
+    this.quantity = productDTO.getQuantity();
+    this.supplier = productDTO.getSupplier();
   }
 
 }

@@ -1,6 +1,5 @@
 package br.com.projetocrud.produtos.entity;
 
-import br.com.projetocrud.produtos.dto.UserDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,14 +19,5 @@ public class UserModel {
   private String name;
   private String email;
   private String password;
-  
-  public void updateFromDTO(UserDTO userDTO) {
-    this.name = userDTO.getName();
-    this.email = userDTO.getEmail();
-    this.password = userDTO.getPassword(); // A senha já está criptografada no DTO
-  }
 
-  public void setUsername(String username) {
-    throw new UnsupportedOperationException("Unimplemented method 'setUsername'");
-  }
 }
