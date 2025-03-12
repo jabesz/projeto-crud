@@ -10,5 +10,4 @@ import br.com.projetocrud.produtos.entity.UserModel;
 public interface UserRepository extends CrudRepository<UserModel, Long> {
 
   UserDTO save(UserDTO user);
-
 }
