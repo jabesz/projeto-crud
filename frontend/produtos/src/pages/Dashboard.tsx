@@ -5,10 +5,9 @@ import { Product, InventoryMovement } from '../types';
 import { productService } from '../services/productService.ts';
 import { inventoryMovementService } from '../services/inventoryMovementService.ts';
 import Navbar from "../components/Navbar.tsx";
-import Sidebar from "../components/Sidebar.tsx";
 import '../assets/styles.css';
+import Sidebar from '../components/Sidebar.tsx';
 
-// Registrar componentes do Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
 
 const Dashboard: React.FC = () => {
@@ -18,12 +17,10 @@ const Dashboard: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [movements, setMovements] = useState<InventoryMovement[]>([]);
   
-  // Estatísticas calculadas
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
   const [lowStockProducts, setLowStockProducts] = useState<number>(0);
   
-  // Dados para gráficos
   const [categoryData, setCategoryData] = useState<any>({
     labels: [],
     datasets: [
@@ -73,10 +70,8 @@ const Dashboard: React.FC = () => {
       setProducts(productsData);
       setMovements(movementsData);
       
-      // Calcular estatísticas
       calculateStats(productsData, movementsData);
       
-      // Preparar dados para gráficos
       prepareChartData(productsData, movementsData);
       
       setError('');
@@ -88,20 +83,16 @@ const Dashboard: React.FC = () => {
   };
 
   const calculateStats = (products: Product[], movements: InventoryMovement[]) => {
-    // Total de produtos
     setTotalProducts(products.length);
     
-    // Valor total do estoque
     const total = products.reduce((sum, product) => sum + (product.price * product.quantity), 0);
     setTotalValue(total);
     
-    // Produtos com estoque baixo (menos de 10 unidades)
     const lowStock = products.filter(product => product.quantity < 10).length;
     setLowStockProducts(lowStock);
   };
 
   const prepareChartData = (products: Product[], movements: InventoryMovement[]) => {
-    // Dados para gráfico de categorias
     const categories: { [key: string]: number } = {};
     products.forEach(product => {
       if (product.category) {
@@ -127,13 +118,10 @@ const Dashboard: React.FC = () => {
       ],
     });
     
-    // Dados para gráfico de movimentações
-    // Agrupar por mês
     const months: string[] = [];
     const entriesData: number[] = [];
     const exitsData: number[] = [];
     
-    // Últimos 6 meses
     for (let i = 5; i >= 0; i--) {
       const date = new Date();
       date.setMonth(date.getMonth() - i);
@@ -179,18 +167,15 @@ const Dashboard: React.FC = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  // Formatar data
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString('pt-BR');
   };
 
-  // Obter movimentações recentes (últimas 5)
   const recentMovements = movements
     .sort((a, b) => new Date(b.movementDate).getTime() - new Date(a.movementDate).getTime())
     .slice(0, 5);
 
-  // Obter produtos com estoque baixo (menos de 10 unidades)
   const lowStockProductsList = products
     .filter(product => product.quantity < 10)
     .sort((a, b) => a.quantity - b.quantity)

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AuthRequest, AuthResponse, User } from '../types';
 
-const API_URL = 'http://localhost:3030';
+const API_URL = 'http://localhost:3030/api';
 
 // Configuração do axios com interceptor para token JWT
 const api = axios.create({

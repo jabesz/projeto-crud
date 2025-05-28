@@ -24,5 +24,10 @@ export const userService = {
   
   deleteUser: async (id: number): Promise<void> => {
     await api.delete(`/auth/${id}`);
-  }
+  },
+
+  login: async (email: string, password: string): Promise<any> => {
+    const response = await api.post('/auth/login', { email, password });
+    return response.data;
+  },
 };
